@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple CMS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #4a4a4a;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    button {
+      background-color: #5a67d8;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #434190;
+    }
+
+    .content-list {
+      margin-top: 30px;
+    }
+
+    .content-item {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+
+    .content-item h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .content-item p {
+      margin: 0;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SimpleCMS</h1>
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" placeholder="Enter title">
+    </div>
+
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea id="content" placeholder="Enter content"></textarea>
+    </div>
+
+    <button id="addContent">+ Add Content</button>
+
+    <div class="content-list" id="contentList">
+      <p>No content items yet. Create one above!</p>
+    </div>
+  </div>
+
+  <script>
+    const addContentButton = document.getElementById('addContent');
+    const contentList = document.getElementById('contentList');
+
+    addContentButton.addEventListener('click', () => {
+      const title = document.getElementById('title').value;
+      const content = document.getElementById('content').value;
+
+      if (title.trim() === '' || content.trim() === '') {
+        alert('Both title and content are required!');
+        return;
+      }
+
+      const contentItem = document.createElement('div');
+      contentItem.className = 'content-item';
+      contentItem.innerHTML = `
+        <h3>${title}</h3>
+        <p>${content}</p>
+      `;
+
+      contentList.appendChild(contentItem);
+
+      // Clear the input fields
+      document.getElementById('title').value = '';
+      document.getElementById('content').value = '';
+
+      // Remove the default message if it exists
+      const defaultMessage = contentList.querySelector('p');
+      if (defaultMessage) {
+        defaultMessage.remove();
+      }
+    });
+  </script>
+</body>
+</html>
